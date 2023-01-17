@@ -11,7 +11,7 @@ let timeOutId = null;
 
 btn.disabled = true;
 input.disabled = false;
-
+let selectedDates;
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -36,22 +36,25 @@ const options = {
   btn.addEventListener(`click`, startTimer);
 
   function startTimer() {
-    if (btn.disabled) {
+    
+    if (btn.disabled) { 
           return;
-        }
+        } 
+           
         input.disabled = true;
         btn.disabled = true;
 
      timeOutId = setInterval(()=> {
       const deltaTime = options.defaultDate - Date.now() ;
-     const time = convertMs(deltaTime);
+      const time = convertMs(deltaTime);
       showTime(time);
     },1000);
 
-   if ( options.defaultDate - Date.now() > Date.now()){
-    clearInterval(timeOutId)
-   }
-   };
+    if (options.defaultDate < Date.now()) {
+        clearInterval(timeOutId)
+        }
+    }
+   
 
   function convertMs(ms) {
   
