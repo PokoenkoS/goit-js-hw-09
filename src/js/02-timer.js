@@ -62,14 +62,9 @@ const options = {
     const days = Math.floor(ms / day);
     const hours = Math.floor((ms % day) / hour);
     const minutes = Math.floor(((ms % day) % hour) / minute);
-    const seconds =Math.floor((((ms % day) % hour)) % minute) / second;
+    const seconds =Math.floor((((ms % day) % hour) % minute) / second);
 
-    // dayEl.textContent = days;
-    // hourEl.textContent = hours;
-    // minuteEl.textContent = minutes;
-    // secondEl.textContent = seconds;
-
-    return { days, hours, minutes, seconds };
+   return { days, hours, minutes, seconds };
   }
   
   function addLeadingZero(value) {
