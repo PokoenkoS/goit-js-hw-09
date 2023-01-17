@@ -5,7 +5,7 @@ const dayEl = document.querySelector(`[data-days]`);
 const hourEl = document.querySelector(`[data-hours]`);
 const minuteEl = document.querySelector(`[data-minutes]`);
 const secondEl = document.querySelector(`[data-seconds]`);
-
+let timeOutId = null;
 
 const btn = document.querySelector(`[data-start]`);
 btn.disabled = true;
@@ -28,6 +28,7 @@ const options = {
       },
   }
   flatpickr(input, options, );
+  
 
   btn.addEventListener(`click`, startTimer);
 
@@ -37,7 +38,8 @@ const options = {
     }
     input.disabled = true;
     btn.disabled = true;
-    setInterval(()=> {
+
+     timeOutId = setInterval(()=> {
 const currentTime = Date.now();
 const deltaTime = options.defaultDate - currentTime ;
 convertMs(deltaTime);
@@ -54,7 +56,7 @@ convertMs(deltaTime);
     const days = addLeadingZero(Math.floor(ms / day));
     const hours = addLeadingZero(Math.floor((ms % day) / hour));
     const minutes = addLeadingZero(Math.floor(((ms % day) % hour) / minute));
-    const seconds = addLeadingZero(Math.floor((((ms % day) % hour)) % minute) / second);
+    const seconds =addLeadingZero(Math.floor((((ms % day) % hour)) % minute) / second);
 
     dayEl.textContent = days;
     hourEl.textContent = hours;
@@ -65,11 +67,11 @@ convertMs(deltaTime);
   }
   
   function addLeadingZero(value) {
-    return String(value).padStart(2,'0');
+    return String(value).padStart(2,"0");
   }
 
 
-  
+
 
  
   
