@@ -11,7 +11,7 @@ let timeOutId = null;
 
 btn.disabled = true;
 input.disabled = false;
-let selectedDates;
+// let selectedDates;
 const options = {
     enableTime: true,
     time_24hr: true,
@@ -21,13 +21,11 @@ const options = {
        
         if (selectedDates[0] < options.defaultDate ){
             window.alert("Please choose a date in the future");
-            btn.disabled = true;
-           
+                      
         } else {
          btn.disabled = false;
          input.disabled = true;
-         
-            options.defaultDate = selectedDates[0];
+         options.defaultDate = selectedDates[0];
         }
       },
   }
@@ -36,26 +34,18 @@ const options = {
   btn.addEventListener(`click`, startTimer);
 
   function startTimer() {
-    
-    if (btn.disabled) { 
-          return;
-        } 
-           
-        input.disabled = true;
-        btn.disabled = true;
+     btn.disabled = true;
 
      timeOutId = setInterval(()=> {
       const deltaTime = options.defaultDate - Date.now() ;
+      if (deltaTime < 1000) {
+        clearInterval(timeOutId)
+        }
       const time = convertMs(deltaTime);
       showTime(time);
     },1000);
-
-    if (options.defaultDate < Date.now()) {
-        clearInterval(timeOutId)
-        }
     }
    
-
   function convertMs(ms) {
   
     const second = 1000;
