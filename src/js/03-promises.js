@@ -17,19 +17,18 @@ function onCreatePromise(evt) {
   for (let i =0; i < amount; i +=1) {
   position +=1;
   
-  console.log(position);
-  console.log(delay);
      
-    createPromise(position, delay).then(({position, delay}) => 
-  Notiflix.Notify.success (`✅ Fulfilled promise ${position} in ${delay}ms`)
-).catch(({position, delay}) => 
-  Notiflix.Notify.failure (`❌ Rejected promise ${position} in ${delay}ms`)
- )
- delay += step;
+    createPromise(position, delay)
+    .then(({position, delay}) => 
+     Notiflix.Notify.success (`✅ Fulfilled promise ${position} in ${delay}ms`)
+  )
+    .catch(({position, delay}) => 
+     Notiflix.Notify.failure (`❌ Rejected promise ${position} in ${delay}ms`)
+  )
+  delay += step;
   }
  
 }
-
 
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
