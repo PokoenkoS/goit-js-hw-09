@@ -1,44 +1,58 @@
 import Notiflix from 'notiflix';
 
-const amount = document.querySelector(`input[name="amount"]`);
-const delay = document.querySelector(`input[name="delay"]`);
-const step = document.querySelector('input[name="step"]');
+const amountEl = document.querySelector(`input[name="amount"]`);
+const delayEl = document.querySelector(`input[name="delay"]`);
+const stepEl = document.querySelector('input[name="step"]');
 const btn = document.querySelector(`button`);
-let counter = 0;
 
+let position = 0;
 btn.addEventListener(`click`, onCreatePromise);
 
 function onCreatePromise(evt) {
   evt.preventDefault();
-  let amountStep = Number(step.value);
-  let amountDelay = Number(delay.value);
-  let amountCounter = Number(amount.value);
-
+  let step = Number(stepEl.value);
+  let delay = Number(delayEl.value);
+  let amount= Number(amountEl.value);
+ 
   const timeoutId = setInterval(() => {
-   counter +=1;
-   console.log(counter);
-
-    if (counter >= amountCounter){
+  position +=1;
+  delay += step;
+  console.log(position);
+  console.log(delay);
+  
+    if (position >= amount){
       clearInterval(timeoutId)
       console.log(`stop`);
     }
-   createPromise();
-  },amountDelay)
+   
+    createPromise(position, delay).then(({position, delay}) => 
+  Notiflix.Notify.success (`✅ Fulfilled promise ${position} in ${delay}ms`)
+).catch(({position, delay}) => 
+  Notiflix.Notify.failure (`❌ Rejected promise ${position} in ${delay}ms`)
+ )
+ delay += step;
+  },delay)
  
 }
+
+
 function createPromise(position, delay) {
   return new Promise((resolve, reject) => {
  
    const shouldResolve = Math.random() > 0.3;
    setTimeout(() =>{
    if (shouldResolve) {
-    Notiflix.Notify.success (`✅ Fulfilled promise ${position} in ${delay}ms`)
-    //  resolve({position, delay});
+   resolve({position, delay});
      
    } 
-   Notiflix.Notify.failure (`❌ Rejected promise ${position} in ${delay}ms`)
-    // reject(`❌ Rejected promise ${position} in ${delay}ms`)
+   reject({position, delay})
      
    },delay)
  })
  }
+
+ 
+ 
+  
+
+
