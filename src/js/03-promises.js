@@ -14,24 +14,19 @@ function onCreatePromise(evt) {
   let delay = Number(delayEl.value);
   let amount= Number(amountEl.value);
  
-  const timeoutId = setInterval(() => {
+  for (let i =0; i < amount; i +=1) {
   position +=1;
-  delay += step;
+  
   console.log(position);
   console.log(delay);
-  
-    if (position >= amount){
-      clearInterval(timeoutId)
-      console.log(`stop`);
-    }
-   
+     
     createPromise(position, delay).then(({position, delay}) => 
   Notiflix.Notify.success (`✅ Fulfilled promise ${position} in ${delay}ms`)
 ).catch(({position, delay}) => 
   Notiflix.Notify.failure (`❌ Rejected promise ${position} in ${delay}ms`)
  )
  delay += step;
-  },delay)
+  }
  
 }
 
